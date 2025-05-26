@@ -55,7 +55,7 @@
       "csp": null
     },
     "updater": {
-      "active": true,
+      "active": false,
       "endpoints": [
         "https://github.com/KiwiTalk/KiwiTalk/releases/latest/download/latest.json"
       ],

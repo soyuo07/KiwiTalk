@@ -9,7 +9,7 @@ export default {
   component: ErrorTip,
 };
 
-const Template: StoryFn<ErrorTipProps> = (props) => {
+const Template: StoryFn<ErrorTipProps> = (props: any) => {
   return (
     <div class={styles.background}>
       <ErrorTip {...props} />

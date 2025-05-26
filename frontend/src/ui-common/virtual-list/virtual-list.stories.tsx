@@ -18,7 +18,7 @@ type VirtualListStoryProps = {
   topMargin: number;
   bottomMargin: number;
 };
-const Template: StoryFn<VirtualListStoryProps> = (props) => {
+const Template: StoryFn<VirtualListStoryProps> = (props: any) => {
   const list = createMemo(
     () => Array
       .from({ length: props.listLength })

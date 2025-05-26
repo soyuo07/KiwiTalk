@@ -300,6 +300,7 @@ export const VirtualList = <
   };
 
   return (
+    // @ts-ignore
     <Dynamic
       {...leftProps}
       component={local.component}

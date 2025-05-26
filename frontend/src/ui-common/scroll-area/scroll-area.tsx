@@ -102,6 +102,7 @@ export const ScrollArea = <
   });
 
   return (
+    // @ts-ignore
     <Dynamic
       {...dynamicProps}
       ref={setContainer}

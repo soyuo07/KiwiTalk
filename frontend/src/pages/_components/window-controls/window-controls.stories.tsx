@@ -8,7 +8,7 @@ export default {
   component: WindowControls,
 };
 
-const Template: StoryFn<{ isActive: boolean }> = (props) => {
+const Template: StoryFn<{ isActive: boolean }> = (props: any) => {
   return (
     <div class={styles.background}>
       <WindowControls isActive={props.isActive} />
