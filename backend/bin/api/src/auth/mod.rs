@@ -134,10 +134,8 @@ pub(super) async fn request_passcode(
 
 #[tauri::command(async)]
 pub(super) async fn register_device(
-    passcode: String,
     email: String,
     password: String,
-    permanent: bool,
     client: ClientState<'_>,
 ) -> TauriResult<Response<()>> {
     Ok(result_to_response(
@@ -147,8 +145,6 @@ pub(super) async fn register_device(
                 email: &email,
                 password: &password,
             },
-            &passcode,
-            permanent,
         )
         .await,
     )
@@ -226,8 +222,10 @@ fn create_auth_client(client: &Client) -> AuthClient<'_, impl XvcHasher> {
 fn create_device(info: &SystemInfo) -> Device<'_> {
     Device {
         name: &info.device.name,
-        model: None,
+        model: "",
         uuid: &info.device.device_uuid,
+        osVersion: "10.0",
+        isOneStore: false
     }
 }
 

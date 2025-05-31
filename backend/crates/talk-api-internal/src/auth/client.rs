@@ -37,8 +37,14 @@ pub struct Device<'a> {
     pub name: &'a str,
 
     #[serde(rename = "model_name")]
-    pub model: Option<&'a str>,
+    pub model: &'a str,
 
     #[serde(rename = "device_uuid")]
     pub uuid: &'a str,
+
+    #[serde(rename = "os_version")]
+    pub osVersion: &'a str,
+
+    #[serde(rename = "one_store")]
+    pub isOneStore: bool,
 }

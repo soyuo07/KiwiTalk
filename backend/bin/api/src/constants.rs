@@ -4,4 +4,4 @@ pub const TALK_AGENT: TalkApiAgent = TalkApiAgent::Win32("10.0");
 pub const XVC_HASHER: Win32XVCHasher = Win32XVCHasher("ARTHUR", "RUZ");
 pub const AUTO_LOGIN_KEY: (&str, &str) = ("PITT", "INORAN");
 
-pub const TALK_VERSION: &str = "4.3.5";
+pub const TALK_VERSION: &str = "25.4.1.4484";

@@ -46,7 +46,7 @@ pub(crate) async fn read_response(request: RequestBuilder) -> ApiResult<impl Der
     struct ApiStatus {
         pub status: i32,
     }
-
+    
     let data = request.send().await?.bytes().await?;
 
     match serde_json::from_slice::<ApiStatus>(&data)?.status {

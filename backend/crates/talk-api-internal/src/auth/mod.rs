@@ -125,22 +125,25 @@ pub async fn request_passcode(
 ) -> ApiResult<()> {
     #[derive(Serialize)]
     struct Form<'a> {
-        #[serde(flatten)]
+        email: &'a str,
+        password: &'a str,
+        permanent: bool,
         device: Device<'a>,
-
-        #[serde(flatten)]
-        account: AccountForm<'a>,
     }
 
     let form = Form {
+        email: account.email,
+        password: account.password,
+        permanent: true,
         device: client.device,
-        account,
     };
+    let json_string = serde_json::to_string(&form)?;
 
     read_response(
         client
-            .request(Method::POST, "account/request_passcode.json", account.email)?
-            .form(&form),
+            .request(Method::POST, "account/passcodeLogin/generate", account.email)?
+            .header("Content-Type", "application/json; charset=UTF-8")
+            .body(json_string),
     )
     .await?;
 
@@ -150,32 +153,31 @@ pub async fn request_passcode(
 pub async fn register_device(
     client: AuthClient<'_, impl XvcHasher>,
     account: AccountForm<'_>,
-    passcode: &str,
-    permanent: bool,
 ) -> ApiResult<()> {
-    #[derive(Serialize)]
+    #[derive(Serialize, Debug)]
+    struct DeviceInfo<'a> {
+        uuid: &'a str,
+    }
+
+    #[derive(Serialize, Debug)]
     struct Form<'a> {
-        #[serde(flatten)]
-        device: Device<'a>,
-
-        #[serde(flatten)]
-        account: AccountForm<'a>,
-
-        passcode: &'a str,
-        permanent: bool,
+        email: &'a str,
+        password: &'a str,
+        device: DeviceInfo<'a>,
     }
 
     let form = Form {
-        device: client.device,
-        account,
-        passcode,
-        permanent,
+        email: account.email,
+        password: account.password,
+        device: DeviceInfo {
+            uuid: client.device.uuid,
+        },
     };
 
     read_response(
         client
-            .request(Method::POST, "account/register_device.json", account.email)?
-            .form(&form),
+            .request(Method::POST, "account/passcodeLogin/registerDevice", account.email)?
+            .json(&form),
     )
     .await?;
 
